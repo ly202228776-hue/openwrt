@@ -51,7 +51,7 @@ define Build/ravpower-wd009-factory
 endef
 
 define Device/7links_wlr-12xx
-  IMAGE_SIZE := 7872k
+  IMAGE_SIZE := 15872k
   DEVICE_VENDOR := 7Links
   DEVICE_PACKAGES := kmod-mt7615e kmod-mt7663-firmware-ap
   IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(BLOCKSIZE) | \
