@@ -41,7 +41,6 @@ jobs:
           CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
           CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocksr_libev_Client=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_DNS2TCP=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_IPT2Socks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ChinaDNS_NG=y
