@@ -1,7 +1,7 @@
-name: Build OpenWrt MT7628AN 16MB
+name: Build OpenWrt MT7628AN 16MB with SSR Plus
 
 on:
-  workflow_dispatch:  # 手动触发
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,6 +21,11 @@ jobs:
             libssl-dev python3-setuptools rsync swig unzip zlib1g-dev \
             file wget
 
+      - name: Add SSR Plus feed
+        run: |
+          echo "src-git kenzok8 https://github.com/kenzok8/openwrt-packages" >> feeds.conf.default
+          echo "src-git small https://github.com/kenzok8/small" >> feeds.conf.default
+
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -32,6 +37,14 @@ jobs:
           CONFIG_TARGET_ramips=y
           CONFIG_TARGET_ramips_mt76x8=y
           CONFIG_TARGET_ramips_mt76x8_DEVICE_mediatek_mt7628an-eval-board=y
+          CONFIG_PACKAGE_luci=y
+          CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
+          CONFIG_PACKAGE_luci-app-ssr-plus=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocksr_libev_Client=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_DNS2TCP=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_IPT2Socks=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ChinaDNS_NG=y
           EOF
           make defconfig
 
@@ -44,6 +57,6 @@ jobs:
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: openwrt-mt7628an-16mb
-          path: bin/targets/ramips/mt76x8/*eval-board*
+          name: openwrt-mt7628an-16mb-ssr
           retention-days: 7
+          path: bin/targets/ramips/mt76x8/*eval-board*
